@@ -1,0 +1,5 @@
+(executable
+ (public_name advent_of_code)
+ (name main)
+ (libraries my_lib unix)
+ (flags (:standard -w -32-33)))

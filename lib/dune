@@ -1,0 +1,4 @@
+(library
+ (name my_lib)
+ (libraries unix)
+ (flags (:standard -w -32-33)))
