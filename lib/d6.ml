@@ -19,7 +19,6 @@ module TupleSet = Set.Make(struct
     | c -> c
 end)
 
-let filename = "inputs/toasty.txt";;
 
 type matrix = char array array;;
 type matrix_dimensions = int * int;;
@@ -147,6 +146,7 @@ let detect_loop (matrix: matrix) (starting_point: pos_dir) =
     aux Running starting_point TupleSet.empty;;
 
 let main () =
+let filename = "inputs/toasty.txt" in
   let matrix = read_lines filename 
                |> List.filter (fun x -> x <> "")
                |> List.map string_to_char_list 

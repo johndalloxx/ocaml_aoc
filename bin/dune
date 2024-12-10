@@ -3,4 +3,4 @@
  (name main)
  (libraries my_lib unix fmt)
  (preprocess (pps ppx_deriving.show))
- (flags (:standard -w -32-33)))
+ (flags (:standard -w -32-33-34)))
