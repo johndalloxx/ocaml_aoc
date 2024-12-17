@@ -27,7 +27,9 @@ let diagonals matrix =
     done
   done;
 
-  Array.map List.rev result |> Array.to_list;;
+  result 
+  |> Array.map List.rev 
+  |> Array.to_list
 
 let anti_diagonals matrix =
   let rows = Array.length matrix in
@@ -41,13 +43,16 @@ let anti_diagonals matrix =
       result.(diag_index) <- matrix.(row).(col) :: result.(diag_index)
     done
   done;
-  Array.map List.rev result |> Array.to_list;;
+
+  result 
+  |> Array.map List.rev 
+  |> Array.to_list
 
 let search_from_idx (arr, _: charr_and_len) (word, w_len: charr_and_len) (idx: int) = 
     let sub_array = Array.sub arr idx w_len in
     if Array.for_all2 (fun a b -> a = b) sub_array word 
     then Some idx 
-    else None;;
+    else None
 
 let find_substr (input, i_len: str_and_len) (word, w_len: str_and_len) = 
     range 0 (i_len - w_len + 1) 
@@ -81,16 +86,16 @@ let get_cross (matrix: matrix_arr) (y, x: point) =
       res2.(i) <- matrix.(y - 1 + i).(x + 1 - i)
   done;
 
-  if (is_mas (str_of_array res1)) && (is_mas (str_of_array res2))
-  then true else false;;
+  (is_mas (str_of_array res1)) && (is_mas (str_of_array res2))
 
-
-let find_point_by_char (c: char) (matrix: matrix_lst)= 
+let find_point_by_char (c: char) (matrix: matrix_lst) =
         List.mapi (fun idy y -> 
-            List.mapi (fun idx x -> if x = c 
-                                    then Some (idy, idx) 
-                                    else None) 
-        y) matrix;;
+            List.mapi (fun idx x -> 
+                if x = c then Some (idy, idx) else None) 
+        y) matrix
+
+
+
 (*SETUP*)
 let filename = "inputs/day4-2024.txt"
 
@@ -111,28 +116,13 @@ let regular =
 
 
 (*PART 1*)
-let reversed = 
-  regular 
-  |> List.map List.rev
-
+let reversed = regular |> List.map List.rev
 let diagonal = diagonals input
 let anti_diagonal = anti_diagonals input
-
-let rev_diagonal = 
-  diagonal 
-  |> List.map List.rev
-
-let rev_anti_diagonal = 
-  anti_diagonal 
-  |> List.map List.rev
-
-let transposed = 
-  regular 
-  |> transpose
-
-let transposed_rev = 
-  transposed 
-  |> List.map List.rev
+let rev_diagonal = diagonal |> List.map List.rev
+let rev_anti_diagonal = anti_diagonal |> List.map List.rev
+let transposed = regular |> transpose
+let transposed_rev = transposed |> List.map List.rev
 
 let all_sequences = 
   List.concat [
@@ -148,9 +138,7 @@ let all_sequences =
 
 let as_strings =
   all_sequences
-  |> List.map (fun chars -> 
-       chars |> List.to_seq |> String.of_seq
-     )
+  |> List.map (fun chars -> chars |> List.to_seq |> String.of_seq)
 
 let matches =
   as_strings
