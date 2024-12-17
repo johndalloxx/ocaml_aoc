@@ -2,7 +2,25 @@ let read_lines file =
   let contents = In_channel.with_open_bin file In_channel.input_all in
   String.split_on_char '\n' contents;;
 
+let range start stop =
+    Seq.unfold (fun current -> 
+        if current >= stop then None else Some (current, current + 1)
+    ) start;;
+
 let parse_input filename = List.map int_of_string_opt (read_lines filename) |> List.filter_map(fun x -> x);;
+
+let str_to_array str =
+    let seq = String.to_seq str in
+    Array.of_seq seq;;
+
+let str_of_array (arr: char array): string = 
+    Bytes.init (Array.length arr) (fun x -> arr.(x)) |>
+    Bytes.to_string;;
+
+let bool_to_string = function
+  | true -> "true"
+  | false -> "false"
+;;
 
 let rec transpose = function
   | [] -> [] 
