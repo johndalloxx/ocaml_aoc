@@ -91,7 +91,7 @@ let find_point_by_char (c: char) (matrix: matrix_lst)=
                                     then Some (idy, idx) 
                                     else None) 
         y) matrix;;
-
+(*SETUP*)
 let filename = "inputs/day4-2024.txt"
 
 let lines = 
@@ -109,20 +109,8 @@ let regular =
   |> Array.to_list 
   |> List.map Array.to_list
 
-let pos_of_A = 
-    regular 
-    |> find_point_by_char 'A'
-    |> List.map (List.filter_map Fun.id)
-    |> List.flatten
 
-let mas_cross_points = 
-    pos_of_A 
-    |> List.filter (fun x -> get_cross input x)
-
-let mac_cross_point_count = 
-    mas_cross_points
-    |> List.length
-
+(*PART 1*)
 let reversed = 
   regular 
   |> List.map List.rev
@@ -148,10 +136,14 @@ let transposed_rev =
 
 let all_sequences = 
   List.concat [
-    regular; reversed; 
-    diagonal; anti_diagonal; 
-    rev_diagonal; rev_anti_diagonal; 
-    transposed; transposed_rev
+    regular; 
+    reversed; 
+    diagonal; 
+    anti_diagonal; 
+    rev_diagonal; 
+    rev_anti_diagonal; 
+    transposed; 
+    transposed_rev
   ]
 
 let as_strings =
@@ -171,6 +163,20 @@ let non_empty_matches =
 let total_occurrences =
   non_empty_matches
   |> List.fold_left (fun acc occs -> acc + List.length occs) 0
+
+let pos_of_A = 
+    regular 
+    |> find_point_by_char 'A'
+    |> List.map (List.filter_map Fun.id)
+    |> List.flatten
+
+let mas_cross_points = 
+    pos_of_A 
+    |> List.filter (fun x -> get_cross input x)
+
+let mac_cross_point_count = 
+    mas_cross_points
+    |> List.length
 
 let () = Printf.printf "Number of occurrences: %d\n" total_occurrences
 let () = Printf.printf "%d\n" mac_cross_point_count;;
